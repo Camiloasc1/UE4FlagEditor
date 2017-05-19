@@ -18,6 +18,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <base href="/UE4FlagEditor/">
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -30,7 +32,7 @@
           href="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.10/css/bootstrap-material-design.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.10/css/ripples.min.css">
     <!-- UE4 Flag Editor -->
-    <script src="css/UE4FlagEditor.css"></script>
+    <link rel="stylesheet" href="css/UE4FlagEditor.css">
 </head>
 <body ng-cloak>
 
@@ -58,5 +60,11 @@
 </script>
 <!-- UE4 Flag Editor -->
 <script src="js/UE4FlagEditor.js"></script>
+<!-- ANTLR4 Runtime -->
+<script src="cdn/require.js"></script>
+<script>
+    CPP14Lexer = require('parser/CPP14Lexer').CPP14Lexer;
+    CPP14Parser = require('parser/CPP14Parser').CPP14Parser;
+</script>
 </body>
 </html>
