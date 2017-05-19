@@ -46,6 +46,6 @@ app.config(['$locationProvider', '$routeProvider', function ($locationProvider, 
         .otherwise({redirectTo: '/'});
 
     //html5mode causes several issues when the front end is embedded with the web service.
-    //$locationProvider.html5Mode(true);
-    $locationProvider.hashPrefix('!');
+    $locationProvider.html5Mode(true);
+    // $locationProvider.hashPrefix('!');
 }]);
