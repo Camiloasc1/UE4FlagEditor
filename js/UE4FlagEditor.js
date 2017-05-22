@@ -17,6 +17,20 @@ app.controller('FlagEditor', ['$scope', function ($scope) {
             $scope.flags = [];
         } else {
             $scope.flags = [{name: 'Flag1', value: 2048, state: true}, {name: 'Flag2', value: 16, state: false}];
+
+            var errorListener = new MyErrorListener();
+            var chars = new antlr4.InputStream($scope.source);
+            var lexer = new CPP14Lexer(chars);
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(errorListener);
+            var tokens = new antlr4.CommonTokenStream(lexer);
+            var parser = new CPP14Parser(tokens);
+            parser.removeErrorListeners();
+            parser.addErrorListener(errorListener);
+            parser.buildParseTrees = true;
+            var tree = parser.translationunit();
+            var listener = new EnumListener();
+            antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
         }
     });
 
