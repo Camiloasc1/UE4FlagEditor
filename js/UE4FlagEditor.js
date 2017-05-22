@@ -2,14 +2,20 @@
 var app = angular.module('UE4FlagEditor', ['ngRoute']);
 
 app.controller('FlagEditor', ['$scope', function ($scope) {
+    $scope.lock = false;
     $scope.source = '0123456789';
     $scope.numberDec = 0;
     $scope.numberBin = $scope.numberDec.toString(2);
     $scope.flags = [];
 
-    $scope.update = function () {
-        $scope.numberDec = parseInt($scope.numberBin, 2);
-        $scope.numberBin = $scope.numberDec.toString(2);
+    $scope.lock = function () {
+        $scope.locked = true;
+    };
+
+    $scope.release = function () {
+        setTimeout(function () {
+            $scope.locked = false;
+        }, 0);
     };
 
     $scope.$watch('source', function () {
@@ -44,18 +50,38 @@ app.controller('FlagEditor', ['$scope', function ($scope) {
     });
 
     $scope.$watch('numberDec', function () {
+        if ($scope.numberDec === null) {
+            return;
+        }
+
         $scope.numberBin = $scope.numberDec.toString(2);
+
+        $scope.lock();
+
+        $scope.flags.forEach(function (f) {
+            f.state = ($scope.numberDec & f.value) === f.value;
+        });
+
+        $scope.release();
     });
 
     $scope.$watch('numberBin', function () {
+        if ($scope.numberBin === null || $scope.numberBin === '') {
+            return;
+        }
+
         $scope.numberDec = parseInt($scope.numberBin, 2);
     });
 
     $scope.$watch('flags', function () {
+        if ($scope.locked) {
+            return;
+        }
+
         $scope.numberDec = 0;
         $scope.flags.forEach(function (f) {
             $scope.numberDec += f.state ? f.value : 0;
-        })
+        });
     }, true);
 }]);
 
