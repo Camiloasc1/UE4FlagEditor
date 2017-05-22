@@ -13,9 +13,15 @@ MyEnumListener.prototype.enterEnumspecifier = function (ctx) {
     this.elements = [];
 };
 
-MyEnumListener.prototype.enterEnumerator = function (ctx) {
-    var e = {name: ctx.getText(), value: Math.pow(2, this.elements.length), state: false};
-    this.elements.push(e);
+MyEnumListener.prototype.enterEnumeratordefinition = function (ctx) {
+    var name = ctx.enumerator().getText();
+    var value = 0;
+    if (ctx.constantexpression()) {
+        value = parseInt(ctx.constantexpression().getText(), 16);
+    } else {
+        value = this.elements.length === 0 ? 0 : this.elements[this.elements.length - 1].value + 1;
+    }
+    this.elements.push({name: name, value: value, state: false});
 };
 
 exports.MyEnumListener = MyEnumListener;

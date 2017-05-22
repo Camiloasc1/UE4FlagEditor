@@ -3,7 +3,7 @@ var app = angular.module('UE4FlagEditor', ['ngRoute']);
 
 app.controller('FlagEditor', ['$scope', function ($scope) {
     $scope.lock = false;
-    $scope.source = '0123456789';
+    $scope.source = '';
     $scope.numberDec = 0;
     $scope.numberBin = $scope.numberDec.toString(2);
     $scope.flags = [];
@@ -43,6 +43,7 @@ app.controller('FlagEditor', ['$scope', function ($scope) {
                 $scope.flags = listener.elements;
                 $scope.errors = [];
             } else {
+                $scope.flags = [];
                 $scope.errors = errorListener.errors;
             }
         }
