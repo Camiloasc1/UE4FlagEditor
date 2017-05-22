@@ -18,6 +18,9 @@ app.controller('FlagEditor', ['$scope', function ($scope) {
         } else {
             $scope.flags = [{name: 'Flag1', value: 2048, state: true}, {name: 'Flag2', value: 16, state: false}];
 
+            // https://github.com/antlr/antlr4/blob/master/doc/javascript-target.md
+            // https://tomassetti.me/antlr-and-the-web/
+            // https://stackoverflow.com/questions/25990158/antlr-4-avoid-error-printing-to-console
             var errorListener = new MyErrorListener();
             var chars = new antlr4.InputStream($scope.source);
             var lexer = new CPP14Lexer(chars);
@@ -30,7 +33,13 @@ app.controller('FlagEditor', ['$scope', function ($scope) {
             parser.buildParseTrees = true;
             var tree = parser.translationunit();
             var listener = new EnumListener();
-            antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
+
+            if (errorListener.errors.length === 0) {
+                antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
+                $scope.errors = [];
+            } else {
+                $scope.errors = errorListener.errors;
+            }
         }
     });
 

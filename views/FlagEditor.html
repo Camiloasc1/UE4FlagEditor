@@ -1,6 +1,13 @@
 <div class="jumbotron">
     <legend>Flag Editor</legend>
 
+    <div ng-repeat="e in errors">
+        <div class="alert alert-danger alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error:</strong> {{e}}
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-sm-6">
             <div align="center">
