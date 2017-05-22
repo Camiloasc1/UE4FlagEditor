@@ -42,6 +42,10 @@ app.controller('FlagEditor', ['$scope', function ($scope) {
                 antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
                 $scope.flags = listener.elements;
                 $scope.errors = [];
+
+                $scope.flags = $scope.flags.filter(function (f) {
+                    return f.value !== 0;
+                });
             } else {
                 $scope.flags = [];
                 $scope.errors = errorListener.errors;
