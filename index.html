@@ -58,13 +58,20 @@
 <script>
     $.material.init();
 </script>
-<!-- UE4 Flag Editor -->
-<script src="js/UE4FlagEditor.js"></script>
 <!-- ANTLR4 Runtime -->
 <script src="cdn/require.js"></script>
 <script>
+    antlr4 = require('antlr4/index');
+    ErrorListener = require('antlr4/error/ErrorListener').ErrorListener;
+
     CPP14Lexer = require('parser/CPP14Lexer').CPP14Lexer;
     CPP14Parser = require('parser/CPP14Parser').CPP14Parser;
+    CPP14Listener = require('parser/CPP14Listener').CPP14Listener;
+
+    EnumListener = require('js/MyEnumListener').MyEnumListener;
+    MyErrorListener = require('js/MyErrorListener').MyErrorListener;
 </script>
+<!-- UE4 Flag Editor -->
+<script src="js/UE4FlagEditor.js"></script>
 </body>
 </html>
